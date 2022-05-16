@@ -152,14 +152,15 @@ vim.keymap.set('n', '<leader>sb', require('telescope.builtin').current_buffer_fu
 -- vim.keymap.set('n', '<leader>st', require('telescope.builtin').tags)
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').grep_string)
 vim.keymap.set('n', '<leader>sp', require('telescope.builtin').live_grep)
-vim.keymap.set('n', '<leader>so', function()
+-- vim.keymap.set('n', '<leader>so', function()
   -- require('telescope.builtin').tags { only_current_buffer = true }
-end)
+-- end)
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles)
 
 -- Treesitter configuration
 -- Parsers must be installed manually via :TSInstall
 require('nvim-treesitter.configs').setup {
+  ensure_installed = "all",
   highlight = {
     enable = true, -- false will disable the whole extension
   },
