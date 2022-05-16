@@ -13,7 +13,6 @@ require('packer').startup(function(use)
   use 'tpope/vim-fugitive' -- Git commands in nvim
   use 'tpope/vim-rhubarb' -- Fugitive-companion to interact with github
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
-  use 'ludovicchabant/vim-gutentags' -- Automatic tags management
   -- UI to select things (files, grep results, open buffers...)
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
@@ -35,19 +34,13 @@ require('packer').startup(function(use)
 end)
 
 --Set highlight on search
-vim.o.hlsearch = false
-
---Make line numbers default
-vim.wo.number = true
+vim.o.hlsearch = true
 
 --Enable mouse mode
 vim.o.mouse = 'a'
 
 --Enable break indent
 vim.o.breakindent = true
-
---Save undo history
-vim.opt.undofile = true
 
 --Case insensitive searching UNLESS /C or capital in search
 vim.o.ignorecase = true
@@ -61,8 +54,29 @@ vim.wo.signcolumn = 'yes'
 vim.o.termguicolors = true
 vim.cmd [[colorscheme onedark]]
 
--- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+-- Make line numbers default
+vim.wo.number = true
+vim.wo.relativenumber = true
+
+-- Save undo history
+vim.opt.undofile = true
+vim.opt.undodir = vim.fn.stdpath 'data' .. '/undo/'
+vim.opt.swapfile = true
+vim.opt.directory = vim.fn.stdpath 'data' .. '/swap/'
+vim.opt.writebackup = true
+vim.opt.backupcopy = 'auto'
+vim.opt.backupdir = vim.fn.stdpath 'data' .. '/backup/'
+
+-- Case insensitive searching UNLESS /C or capital in search
+vim.o.ignorecase = true
+vim.o.smartcase = true
+
+-- Something about completion menu
+vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
+
+-- Clear search highlight
+local opts = {noremap = true, silent = true}
+vim.api.nvim_set_keymap('n', '<esc><esc>', '<cmd>:noh<CR>', opts)
 
 --Set statusbar
 require('lualine').setup {
