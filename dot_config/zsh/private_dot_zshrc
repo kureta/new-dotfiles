@@ -75,20 +75,25 @@ setopt beep extendedglob
 setopt AUTO_CD
 unsetopt nomatch
 bindkey -v
+bindkey "^?" backward-delete-char
 # End of lines configured by zsh-newuser-install
 
 source /usr/share/fzf/shell/key-bindings.zsh
 
 alias vim=nvim
-alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
+alias wget=wget --hsts-file="${XDG_DATA_HOME:-${HOME}/.local/share}/wget-hsts"
 
 SPACESHIP_VENV_PREFIX=""
 SPACESHIP_VENV_SYMBOL=$SPACESHIP_PYENV_SYMBOL
 SPACESHIP_VENV_SUFFIX=""
 
-compinit -d $XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION
-export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME"/jupyter
-export HISTFILE="$XDG_DATA_HOME"/zsh/history
-export PATH=$PATH:$HOME/.local/bin
+compinit -d ${XDG_CACHE_HOME:-${HOME}/.cache}/zsh/zcompdump-$ZSH_VERSION
+export JUPYTER_CONFIG_DIR="${XDG_CONFIG_HOME:-${HOME}/.config}"/jupyter
+export HISTFILE="${XDG_DATA_HOME:-${HOME}/.local/share}"/zsh/history
+export PATH=$PATH:$HOME/.local/bin:$HOME/.cargo/bin
 
 export EDITOR=$(which nvim)
+
+# Nvidia CUDA
+export PATH=/usr/local/cuda-11.7/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-11.7/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
